@@ -4,6 +4,7 @@
     let entitle;
     let speneed;
     let addper;
+    let examplefile;
 
     let sendNeed = async()=>{
         try {
@@ -13,9 +14,10 @@
                 "Content-Type" : "application/json"
             },
             body: JSON.stringify({
-                title:entitle,
-                needis:speneed,
-                contactperson:addper
+                Title:entitle,
+                NeedIs:speneed,
+                ContactPerson:addper,
+                FileData:examplefile
             })
         })
     } catch {
@@ -33,7 +35,7 @@
 
     <Form> 
         <FormGroup>
-            <Label for="title">Enter a title</Label>
+            <Label for="Title">Enter a title</Label>
             <Input 
                 type="text" 
                 id="entitle" 
@@ -67,14 +69,14 @@
             />
         </FormGroup> <!--says addper is not declared: bind:value={addper}-->
          
-        <FormGroup> <!--https://sveltestrap.js.org/?path=/story/components--inputs-->
+        <FormGroup> <!--https://sveltestrap.js.org/?path=/story/components--inputs--> <!--denne blev ikke uploaded, find ud af hvordan, (pdf, png, jpeg)-->
             <Label for="examlpefile">File</Label>
             <Input 
                 type="file"   
                 name="file" 
                 id="examplefile"
             />
-        </FormGroup>
+        </FormGroup> <!--This is not getting posted, check why-->
 
         <Button size="lg" type="submit" value="Submit" on:click={sendNeed}>Submit</Button>
     </Form>
