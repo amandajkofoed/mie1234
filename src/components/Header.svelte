@@ -2,7 +2,7 @@
     import {
     Nav,
     NavItem,
-    NavLink
+    NavLink, Form, FormGroup, FormText, Input, Label 
   } from 'sveltestrap';
 </script>
 
@@ -20,7 +20,21 @@
                 <NavLink href="/needs">Needs</NavLink>
             </NavItem>
         </Nav>
-        <input type="text" placeholder="Search needs">
+        <!-- svelte-ignore missing-declaration -->
+        <Form>
+            <FormGroup>
+                <Label for="searchKeyWords"></Label>
+                <Input
+                  type="search"
+                  name="search"
+                  id="exampleSearch"
+                  placeholder="Search Key Words"
+                />
+            </FormGroup>
+        </Form>
+        
+        
+        <!--<input type="text" placeholder="Search needs">-->
     </div>
 </header>
 
@@ -41,14 +55,14 @@
         font-size: 60px;
         
     }
-    .topheader input[type=text]{
-        /*float: right;
+    /*.topheader input[type=text]{
+        float: right;
         padding: 6px;
         border: none;
         margin-right: 16px;
-        font-size: 15px;*/
+        font-size: 15px;
         width: 200px;
-    }
+    }*/
 
     .topheader{
         display: flex;

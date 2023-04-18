@@ -8,11 +8,18 @@
 
 
     let fetchData = async ()=>{
-        const res = await fetch("http://130.225.170.197/api/v1/needs/10");
+        const res = await fetch("http://130.225.170.197/api/v1/needs/14");
         return await res.json()
-        };
+        }; /*This only fetches data, if it is setup as an array, and it is not */
     
-    let needs = [fetchData()]
+    /*let fetchData = async () => {
+        const res = await fetch("http://130.225.170.197/api/v1/needs/14");
+        const data = await res.json();
+        console.log(data);
+        return data;
+    };*/ /*This was to check if it was an array = it is not */
+    
+    let needs = fetchData()
 
 </script>
 
