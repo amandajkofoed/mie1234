@@ -4,8 +4,8 @@
     //export let pagedata: PageData;
     import Header from "../../components/Header.svelte";
 
-    //https://refine.dev/blog/how-to-multipart-upload/
-    const form = document.getElementById("form");
+//---------------------https://refine.dev/blog/how-to-multipart-upload/---------------------
+    /*const form = document.getElementById("form");
     const inputFile = document.getElementById("examplefile")
     
     const formData = new FormData();
@@ -26,12 +26,32 @@
         }).catch((error)=> ("noget gik galt", error));
     }
     
-    form.addEventListener("submit", handleSubmit);
+    form.addEventListener("submit", handleSubmit);*/
+//---------------------------------------------------------
 
+//------------CHATGPT------------------
+    /*async function doSubmit(event) {
+        event.preventDefault();
+
+        const formData = new FormData()
+        const fileInput = event.target.querySelector('input[type=file]');
+
+        if (fileInput.files.length > 0) {
+            formData.append('myfile', fileInput.files[0]);
+
+            const response = await post('http://130.225.170.197/api/v1/needs', {body: formData});
+
+            console.log(response.status);
+        }
+    }*/
+//-----------------------------------------------------------------
+
+
+//-----------------From christians example---------------------------
     /*let entitle;
     let speneed;
     let addper;
-    let examplefile
+    let examplefile;
     
 
     let sendNeed = async()=>{
@@ -55,10 +75,55 @@
         alert("Vi sendte data!") //måske: anvend alert fra sveltestrap istedet
     }*/
 
+//-------------------https://hartenfeller.dev/blog/sveltekit-image-upload-store---------------------
     /* function handleFileUpload(e: Event){
         const image = (e.target as HTMLInputElement)?.files?.[0];
-    } this was used: https://hartenfeller.dev/blog/sveltekit-image-upload-store*/ /* issue with ts and js*/
-    
+    } this was used: */ /* issue with ts and js*/
+//----------------------------------
+
+//From christian discord ---------------------------
+    let sendNeed = async (event) => {
+        const files = event.target.files;
+
+        if (files && files.length > 0) { //this is new
+            const file = files[0];
+            // rest of the code that uses the file variable
+            } else {
+            console.error('No file selected');
+        }
+        //her henter jeg værdien af bruger input og definere det, så det er 'value' i formData.append()
+        const titleInput = document.getElementById('entitle');
+        const needisInput = document.getElementById('speneed');
+        const contactperInput = document.getElementById('addper');
+        const filedataInput = document.getElementById('examplefile');
+
+
+        const formData = new FormData(); //nu kommer det der står efter kommaet til at være outputet, ligemeget hvad man udfylder i formen - LØST 
+        formData.append('Title',titleInput.value);
+        formData.append('NeedIs', needisInput.value);
+        formData.append('ContactPerson', contactperInput.value);
+        formData.append('FileData', filedataInput.value); //stadig problemer med at tilføje fil, 
+        //formData.append('FileData', file);
+
+        try {
+            const response = await fetch('http://130.225.170.197/api/v1/needs', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (response.ok) {
+                const json = await response.json();
+                console.log('Need ID:', json.id);
+
+            } else {
+                console.error('Error:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
+
 </script>
 
 <h1>Add a need</h1>
@@ -66,8 +131,7 @@
 <body>
     
     <h3>Here you can create a need</h3>
-<!--Add small text or a pop up note, with an explanation and/or example of what/how to fill out the field, 
-sveltestrap: collapse, fade, modals, popover-->
+
     <Form id="form" enctype="multipart/form-data"> 
         <FormGroup>
             <Label for="Title">Enter a title</Label>
@@ -115,33 +179,21 @@ sveltestrap: collapse, fade, modals, popover-->
             />
         </FormGroup> <!--bind:value={addper}-->
          
-        <FormGroup > <!--https://sveltestrap.js.org/?path=/story/components--inputs--> <!--denne blev ikke uploaded, find ud af hvordan, (pdf, png, jpeg)-->
-            <!--enctype="multipart/form-data"
-
-            <div class="mt-3">
-                <Button id="btn-trigger">Hover me</Button>
-                <Popover
-                  trigger="hover"
-                  placement="right"
-                  target="btn-trigger"
-                  title="Popover with hover"
-                >
-                  This is a Popover with hover as the trigger.
-                </Popover>
-            </div> the popover only appears in the bottom, where it can not be seen...-->
-
+        <FormGroup > <!--https://sveltestrap.js.org/?path=/story/components--inputs--> <!--nu kan man vælge billeder filer og PDF-->
+        
             <Label for="examlpefile">File</Label>
             <Input 
                 type="file"   
-                name="file" 
+                name="myfile" 
                 id="examplefile"
-                accept="image/*"
-                
+                accept="image/*, application/pdf"
+
             />
         </FormGroup> <!--This is not getting posted, check why, bind:value={examplefile}, on:change={handleFileUpload}-->
+        <!--gør det muligt at downloade the uploadede fil/billede og gør alle filer mulige at uploade.-->
 
-        <Button size="lg" type="submit" value="Submit" on:click={handleSubmit}>Submit</Button>
-    </Form>
+        <Button size="lg" type="submit" value="Submit" name="mySubmit" on:click={sendNeed}>Submit</Button>
+    </Form> <!--on:click={handleSubmit}-->
 </body>
 
 
