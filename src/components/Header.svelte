@@ -1,9 +1,32 @@
 <script>
-    import {
-    Nav,
-    NavItem,
-    NavLink, Form, FormGroup, FormText, Input, Label 
-  } from 'sveltestrap';
+    import { Nav, NavItem, NavLink, Form, FormGroup, FormText, Input, Label, DropdownItem,
+    DropdownMenu,
+    DropdownToggle,
+    Dropdown,
+     } from 'sveltestrap';
+
+    //--------trying from Chat gpt 
+    let searchResults = [];
+
+    function search() {
+        console.log('searching...');
+        const query = document.getElementById('exampleSearch').value;
+        console.log('query:', query)
+        fetch(`http://130.225.170.197/api/v1/search?keyword=${query}&pageNumber=1&resultsPerPage=10`)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                searchResults = data;
+                console.log('searchResults:', searchResults)
+            });
+    }
+
+
+    function redirectToPage(result) {
+        window.location.href = '/seeSearchResults/' + result
+    }
+
+    let isOpen;
 </script>
 
 <!--https://www.w3schools.com/howto/howto_css_searchbar.asp-->
@@ -24,17 +47,33 @@
         <Form>
             <FormGroup>
                 <Label for="searchKeyWords"></Label>
-                <Input
-                  type="search"
-                  name="search"
-                  id="exampleSearch"
-                  placeholder="Search Key Words"
-                />
+
+    
+                    <Input
+                    type="search"
+                    name="search"
+                    id="exampleSearch"
+                    placeholder="Search Key Words"
+                    on:input={search}
+                    />
+        
+               
             </FormGroup>
         </Form>
         
         
         <!--<input type="text" placeholder="Search needs">-->
+    </div>
+    <div>
+        {#if searchResults && searchResults.length > 0}
+        <ul>
+            {#each searchResults as result}
+                <li on:click={() => redirectToPage(result)} on:keydown={(event) => 
+                {if (event.key === 'Enter') redirectToPage(result)}}> {result.Title} 
+                </li>
+            {/each}
+        </ul>
+    {/if}
     </div>
 </header>
 

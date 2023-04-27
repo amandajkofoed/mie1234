@@ -17,7 +17,9 @@
 
 <style>
     body{
-        margin: 0;
+        margin: 0px;
+        /*background-color: blue;*/
+        border-radius: 20px;
     }
     .background{
         background-image: url("/src/Pictures/MacBook Air - 10.jpg"); 
@@ -30,6 +32,7 @@
     main{
         /*max-width: 960px; /* modsiger det app.html?*/
         color: white;
+        
         margin-left: 200px;
         margin-right: 200px;
     }

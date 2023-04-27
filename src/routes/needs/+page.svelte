@@ -6,6 +6,8 @@
     let ContactPerson;
     let FileData;
 
+    let id //mulighed: at bruger kan indskrive ID nummer 
+
 
     let needs;
 
@@ -19,8 +21,11 @@
 //------------------------------
 
 
-    let fetchData = async (id)=>{
-        const res = await fetch("http://130.225.170.197/api/v1/needs/68");
+    let fetchData = async ()=>{
+        const res = await fetch("http://130.225.170.197/api/v1/needs/30");
+        //const data = await res.json();
+        //console.log(data);
+        //return data;
         return await res.json()
         }; /*This only fetches data, if it is setup as an array, and it is not */
 
@@ -29,6 +34,7 @@
     let loadNeeds = async() => {
         //needs = await fetchData();
         const response = await fetchData();
+        //console.log(response)
         Title = response.body.Title;
         NeedIs = response.body.NeedIs;
         ContactPerson = response.body.ContactPerson;
@@ -36,6 +42,10 @@
     }   
 
     loadNeeds();
+
+    const handleClick = async () => {
+    await loadNeeds();
+    }
 
     //---------------------------------------
     
@@ -83,6 +93,10 @@
         <p style="color: red">{error.message}</p>
     {/await}--> 
     
+    <p>Enter ID:</p>
+    <input type="number" bind:value={id} placeholder="Enter ID" />
+    <button on:click={loadNeeds}>Load Needs</button>
+
     <!--------------------added 21/4-23-------------->
     <h2>Title: {Title}</h2>
     <h3>Need</h3>
@@ -90,11 +104,16 @@
     <h3>Contact Person</h3>
     <p> {ContactPerson}</p>
     <h3>File(s)</h3>
-    <p> {FileData}</p> 
+    <p> {@html FileData}</p> 
     
 </body>
 
 <style>
+    body{
+        background-color: white;
+        border-radius: 20px;
+        padding: 15px;
+    }
     h1{
         margin-top: 20px;
     }

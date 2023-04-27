@@ -82,28 +82,29 @@
 //----------------------------------
 
 //From christian discord ---------------------------
-    let sendNeed = async (event) => {
-        const files = event.target.files;
+    let files;
+    let entitle
+    let sendNeed = async () => {
+        let file;
 
         if (files && files.length > 0) { //this is new
-            const file = files[0];
+            file = files[0];
             // rest of the code that uses the file variable
+            
             } else {
             console.error('No file selected');
         }
         //her henter jeg værdien af bruger input og definere det, så det er 'value' i formData.append()
-        const titleInput = document.getElementById('entitle');
         const needisInput = document.getElementById('speneed');
         const contactperInput = document.getElementById('addper');
-        const filedataInput = document.getElementById('examplefile');
+        const fileContents = document.getElementById('examplefile');
 
 
         const formData = new FormData(); //nu kommer det der står efter kommaet til at være outputet, ligemeget hvad man udfylder i formen - LØST 
-        formData.append('Title',titleInput.value);
+        formData.append('Title',entitle);
         formData.append('NeedIs', needisInput.value);
         formData.append('ContactPerson', contactperInput.value);
-        formData.append('FileData', filedataInput.value); //stadig problemer med at tilføje fil, 
-        //formData.append('FileData', file);
+        formData.append('FileData', file)
 
         try {
             const response = await fetch('http://130.225.170.197/api/v1/needs', {
@@ -126,34 +127,35 @@
 
 </script>
 
-<h1>Add a need</h1>
+<h1>Tilføj behov</h1>
 
 <body>
     
-    <h3>Here you can create a need</h3>
+    <h3>Her kan du oprette og dele et behov</h3>
 
     <Form id="form" enctype="multipart/form-data"> 
         <FormGroup>
-            <Label for="Title">Enter a title</Label>
+            <Label for="Title">Emne/Titel</Label>
             <FormText color="muted"> <!--I dont like the gap between the title and the text-->
-                <br> The MIE pilot aim to provide the documentation for value creation and applicability 
-                necessary to back a funding application to the Novo Nordisk Foundation.
+                <br> Navngiv din indsigt, f.eks.: "Kommunikation med patienter", "Afskaffelse af farligt affald" 
+                    eller "Patienter keder sig når de venter"
             </FormText>
             <Input 
                 type="text" 
                 id="entitle" 
                 name="entitle" 
-                placeholder="fx. Patienter udebliver eller er forsinkede" 
+                placeholder="f.eks. Patienter udebliver eller er forsinkede" 
+                bind:value={entitle}
                 
             />
-        </FormGroup> <!--bind:value={entitle}-->
+        </FormGroup> <!---->
         
         <FormGroup> <!--How to make this a adjustble textarea?-->
-            <Label for="addneed">Specify the need</Label>     
+            <Label for="addneed">Om afdelingens behov</Label>     
             
             <FormText color="muted"> <!--I dont like the gap between the title and the text-->
-                <br> The MIE pilot aim to provide the documentation for value creation and applicability 
-                necessary to back a funding application to the Novo Nordisk Foundation.
+                <br> Her skal du beskrive et behov du har stødt på i dit arbejde på afdelingen. 
+                    Fortæl om hvad behovet er og i hvilken kontekst det er opstået.
             </FormText>  
 
             <Input 
@@ -164,35 +166,43 @@
                 placeholder="Beskriv behovet"
                 
             />
-        </FormGroup> <!--bind:value={speneed}-->
+        </FormGroup> <!--Der skal linkes til et godt eksempel når det bliver lavet i. forhåbenligt på vores domæne. -->
         <!--<textarea name="speneed" id="speneed" rows="5" placeholder="Beskriv behovet"></textarea> -->
 
         <FormGroup>
 
-            <Label for="conperson">Enter the name and email of the contact person</Label>
+            <Label for="conperson">Nøgleafdeling</Label>
+            <FormText color="muted">
+                <br> Hvilke afdeling man kan kontakte for at lære mere om netop dette behov, f.eks: HGH sengeafsnit for nyresyge.
+            </FormText>
             <Input 
                 type="text" 
                 name="addper" 
                 id="addper" 
-                placeholder="fx. Amanda Kofoed, amanda@mandu.dk, DTU" 
+                placeholder="f.eks. Hæmodialysen på Roskilde Universitetshospital"
                 
             />
         </FormGroup> <!--bind:value={addper}-->
          
         <FormGroup > <!--https://sveltestrap.js.org/?path=/story/components--inputs--> <!--nu kan man vælge billeder filer og PDF-->
         
-            <Label for="examlpefile">File</Label>
+            <Label for="examlpefile">Tilføj dokumenter eller billeder</Label>
+            <FormText color="muted">
+                <br> Her kan du tilføje dokumentation om behovet, f.eks.: forskningsresultater, en email, 
+                    billeder af situationer eller en afsluttende opgave.
+            </FormText>
             <Input 
                 type="file"   
                 name="myfile" 
                 id="examplefile"
                 accept="image/*, application/pdf"
+                bind:files
 
             />
         </FormGroup> <!--This is not getting posted, check why, bind:value={examplefile}, on:change={handleFileUpload}-->
         <!--gør det muligt at downloade the uploadede fil/billede og gør alle filer mulige at uploade.-->
 
-        <Button size="lg" type="submit" value="Submit" name="mySubmit" on:click={sendNeed}>Submit</Button>
+        <Button size="lg" type="submit" value="Submit" name="mySubmit" on:click={sendNeed}>Del behov</Button>
     </Form> <!--on:click={handleSubmit}-->
 </body>
 
@@ -206,7 +216,11 @@
    body{
         line-height: 1.5;
         margin-top: 20px;
+        background-color: white;
+        border-radius: 20px;
+        padding: 15px;
     }
+
     /*form label, form input{
         display: block;
     }
