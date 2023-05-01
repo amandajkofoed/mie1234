@@ -4,82 +4,7 @@
     //export let pagedata: PageData;
     import Header from "../../components/Header.svelte";
 
-//---------------------https://refine.dev/blog/how-to-multipart-upload/---------------------
-    /*const form = document.getElementById("form");
-    const inputFile = document.getElementById("examplefile")
-    
-    const formData = new FormData();
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-
-        for (const file of inputFile.files){
-            formData.append('Title', createNeedForm.querySelector('input[name="entitel"]').value);
-            formData.append('NeedIs', createNeedForm.querySelector('input[name="speneed"]').value);
-            formData.append('ContactPerson', createNeedForm.querySelector('input[name="addper"]').value);
-            formData.append('FileData', createNeedForm.querySelector('input["examplefile"]').value);
-        }
-
-        fetch("http://130.225.170.197/api/v1/needs", {
-            method: "post",
-            body: formData
-        }).catch((error)=> ("noget gik galt", error));
-    }
-    
-    form.addEventListener("submit", handleSubmit);*/
-//---------------------------------------------------------
-
-//------------CHATGPT------------------
-    /*async function doSubmit(event) {
-        event.preventDefault();
-
-        const formData = new FormData()
-        const fileInput = event.target.querySelector('input[type=file]');
-
-        if (fileInput.files.length > 0) {
-            formData.append('myfile', fileInput.files[0]);
-
-            const response = await post('http://130.225.170.197/api/v1/needs', {body: formData});
-
-            console.log(response.status);
-        }
-    }*/
-//-----------------------------------------------------------------
-
-
-//-----------------From christians example---------------------------
-    /*let entitle;
-    let speneed;
-    let addper;
-    let examplefile;
-    
-
-    let sendNeed = async()=>{
-        try {
-        res = await fetch("http://130.225.170.197/api/v1/needs",{
-            method:"POST",
-            headers: {
-                "Content-Type" : "application/json" /*check link from arooj
-                //"Content-Type" : "multipart/form-data" - this causes error 500
-            },
-            body: JSON.stringify({
-                Title:entitle,
-                NeedIs:speneed,
-                ContactPerson:addper,
-                FileData:examplefile
-            })
-        })
-    } catch {
-        //Gør noget ved fejl
-    }
-        alert("Vi sendte data!") //måske: anvend alert fra sveltestrap istedet
-    }*/
-
-//-------------------https://hartenfeller.dev/blog/sveltekit-image-upload-store---------------------
-    /* function handleFileUpload(e: Event){
-        const image = (e.target as HTMLInputElement)?.files?.[0];
-    } this was used: */ /* issue with ts and js*/
-//----------------------------------
 
 //From christian discord ---------------------------
     let files;
@@ -107,7 +32,7 @@
         formData.append('FileData', file)
 
         try {
-            const response = await fetch('http://130.225.170.197/api/v1/needs', {
+            const response = await fetch('http://130.225.170.197/api/v1/needs/', {
                 method: 'POST',
                 body: formData
             });
@@ -183,6 +108,53 @@
                 
             />
         </FormGroup> <!--bind:value={addper}-->
+
+        <FormGroup>
+
+            <Label for="proposal">Forslag</Label>
+            <FormText color="muted">
+                <br> Hvis du/I allerede har et forslag, så beskriv det her.
+            </FormText>
+            <Input 
+                type="text" 
+                name="addproposal" 
+                id="addproposal" 
+                rows={3} 
+                placeholder="f.eks. Send besked til patienter dagen før"
+                
+            />
+        </FormGroup>
+
+        <FormGroup>
+
+            <Label for="keywords">Nøgleord</Label>
+            <FormText color="muted">
+                <br> Indtast nøgleord (Nøgleordene skal adskilles med et komma (,))
+            </FormText>
+            <Input 
+                type="text" 
+                name="addkeywords" 
+                id="addkeywords" 
+                placeholder="f.eks. Patient, udeblivelse, SMS"
+                
+            />
+        </FormGroup>
+
+        <FormGroup>
+
+            <Label for="solution">Løsning</Label>
+            <FormText color="muted">
+                <br> Beskriv den løsning du/I anvender
+            </FormText>
+            <Input 
+                type="text" 
+                name="addsolution" 
+                id="addsolution" 
+                rows={3} 
+                placeholder="f.eks. Vi ringer vores patienter op dagen før"
+                
+            />
+        </FormGroup>
          
         <FormGroup > <!--https://sveltestrap.js.org/?path=/story/components--inputs--> <!--nu kan man vælge billeder filer og PDF-->
         
@@ -221,24 +193,5 @@
         padding: 15px;
     }
 
-    /*form label, form input{
-        display: block;
-    }
-    form input{
-        margin-bottom: 15px;
-    }
-    /*form textarea{
-        margin-bottom: 15px;
-    }
-    form label{
-        font-weight: bold;
-    }
-    /*#speneed{
-        width: 1000px;
-        height: 100px;
-    }
-
-    #entitle, #addper{
-        width: 500px;
-    }*/
+    
 </style>

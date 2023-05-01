@@ -3,7 +3,10 @@
     import Footer from "../components/Footer.svelte";
 </script>
 
-<Header />
+<header>
+    <Header />
+</header>
+
 <body>
     <div class="background">
         <main>
@@ -12,9 +15,9 @@
     </div>
 </body>
 
-
-<Footer />
-
+<footer>
+    <Footer />
+</footer>
 <style>
     body{
         margin: 0px;
@@ -24,7 +27,7 @@
     .background{
         background-image: url("/src/Pictures/MacBook Air - 10.jpg"); 
         background-size: cover;
-        background-repeat: no-repeat;
+        background-repeat: repeat;
         min-height: 100vh;
         box-sizing: border-box;
         padding: 20px;

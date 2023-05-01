@@ -6,7 +6,7 @@
     let ContactPerson;
     let FileData;
 
-    let id //mulighed: at bruger kan indskrive ID nummer 
+    //let id //mulighed: at bruger kan indskrive ID nummer 
 
 
     let needs;
@@ -22,7 +22,7 @@
 
 
     let fetchData = async ()=>{
-        const res = await fetch("http://130.225.170.197/api/v1/needs/30");
+        const res = await fetch("http://130.225.170.197/api/v1/needs/3");
         //const data = await res.json();
         //console.log(data);
         //return data;
@@ -49,14 +49,7 @@
 
     //---------------------------------------
     
-    /*let fetchData = async () => {
-        const res = await fetch("http://130.225.170.197/api/v1/needs/14");
-        const data = await res.json();
-        console.log(data);
-        return data;
-    };*/ /*This was to check if it was an array = it is not */
     
-    //let needs = fetchData() //18/4
 
 </script>
 
@@ -64,38 +57,7 @@
 
 <body> <!--18/4: 'data' is being changed to 'json'-->
     <p>Here you can view needs</p>
-    <!--{#await needs}
-        <p>...waiting</p>
-    {:then json} <!-before: :then data
-    {#if Array.isArray(json)}
-            <ol>
-                {#each json as need}
-                    <li>
-                        {JSON.stringify(Title)} - {need.NeedIs} - {need.ContactPerson} <!-is this correct?
-                    </li>
-                {/each}
-            </ol>
-
-        {:else if (typeof json === 'object' && json !== null)} <!-new from here
-            <ol>
-                {#each Array.from(json) as need}
-                    <li>
-                        {JSON.stringify(need)}
-                    </li>
-                {/each}
-            </ol> <!-new to here
-
-        {:else}
-        <p>The data is not an array or an array like object</p>
-    {/if}
-
-    {:catch error}
-        <p style="color: red">{error.message}</p>
-    {/await}--> 
     
-    <p>Enter ID:</p>
-    <input type="number" bind:value={id} placeholder="Enter ID" />
-    <button on:click={loadNeeds}>Load Needs</button>
 
     <!--------------------added 21/4-23-------------->
     <h2>Title: {Title}</h2>

@@ -1,31 +1,33 @@
 <script>
-    import { each } from "svelte/internal";
     let Title
     let NeedIs;
     let ContactPerson;
     let FileData;
 
     let needs = [];
+    let token ='';
 
     let fetchData = async ()=>{
         const res = await fetch("http://130.225.170.197/api/v1/allneeds");
+        const data = await res.json();
+        //console.log(data);
+        return data;
         return await res.json()
-        //return res
-    }
+        }; /*This only fetches data, if it is setup as an array, and it is not */
+
 
     let loadAllNeeds = async() => {
-        const response = await fetchData();
-        needs = response.body;
-        //added later 
-        needs.forEach(need => {
-            need.FileData = need.fileURL.split('\">')[1].split("</a>")[0];
-            need.fileURL = need.fileURL.split('href=\"')[1].split('\">')[0];
-        })
-    }
+         const response = await fetchData();
+         needs = response.body;
+         //added later 
+         needs.forEach(need => {
+             need.FileData = need.fileURL.split('\">')[1].split("</a>")[0];
+             need.fileURL = need.fileURL.split('href=\"')[1].split('\">')[0];
+         })
+     }
 
 
-    loadAllNeeds();
-
+   loadAllNeeds();
 </script>
 
 <h1>Her kan du se alle behov som er blevet delt/oprettet</h1>

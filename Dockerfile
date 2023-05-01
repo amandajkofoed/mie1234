@@ -8,3 +8,5 @@ CMD ["node", "build"]
 
 
 # download docker, lav profil duckerhub, køre "docker build . -t innocloud . docker push" (publish to docker hub )
+
+#https://shisho.dev/blog/posts/how-to-use-dockerignore/ 

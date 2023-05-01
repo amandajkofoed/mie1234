@@ -1,9 +1,5 @@
 <script>
-    import { Nav, NavItem, NavLink, Form, FormGroup, FormText, Input, Label, DropdownItem,
-    DropdownMenu,
-    DropdownToggle,
-    Dropdown,
-     } from 'sveltestrap';
+    import { Nav, NavItem, NavLink, Form, FormGroup, FormText, Input, Label } from 'sveltestrap';
 
     //--------trying from Chat gpt 
     let searchResults = [];
@@ -26,7 +22,8 @@
         window.location.href = '/seeSearchResults/' + result
     }
 
-    let isOpen;
+   
+    
 </script>
 
 <!--https://www.w3schools.com/howto/howto_css_searchbar.asp-->
@@ -37,45 +34,44 @@
         </a>
         <Nav pills class="navpills"> <!--kan man få den 'korrekte' tab til at være farvet?--> <!--https://sveltestrap.js.org/?path=/story/components--nav-->
             <NavItem>
-                <NavLink href="/">Home</NavLink>
+                <NavLink href="/">Hjem</NavLink>
             </NavItem>
             <NavItem>
-                <NavLink href="/needs">Needs</NavLink>
+                <NavLink href="/needs">Behov</NavLink>
+            </NavItem>
+            <NavItem>
+                <NavLink href="/allneeds">Se alle behov</NavLink>
+            </NavItem>
+            <NavItem>
+                <NavLink href="/register">Registre dig</NavLink>
+            </NavItem>
+            <NavItem>
+                <NavLink href="/seeSearchResults/[id]">Søg i behov</NavLink>
             </NavItem>
         </Nav>
         <!-- svelte-ignore missing-declaration -->
-        <Form>
-            <FormGroup>
-                <Label for="searchKeyWords"></Label>
-
-    
-                    <Input
-                    type="search"
-                    name="search"
-                    id="exampleSearch"
-                    placeholder="Search Key Words"
-                    on:input={search}
-                    />
         
-               
-            </FormGroup>
-        </Form>
         
         
         <!--<input type="text" placeholder="Search needs">-->
     </div>
-    <div>
+    <!--<div>
         {#if searchResults && searchResults.length > 0}
         <ul>
             {#each searchResults as result}
                 <li on:click={() => redirectToPage(result)} on:keydown={(event) => 
-                {if (event.key === 'Enter') redirectToPage(result)}}> {result.Title} 
+                {if (event.key === 'Enter') redirectToPage(result)}}> {result.Title} - {result.NeedIs} 
                 </li>
             {/each}
         </ul>
     {/if}
-    </div>
+    </div>-->
+
+
+   
 </header>
+
+
 
     
 
@@ -109,5 +105,4 @@
         align-items: center;
     }
 
-    /*hvordan kan jeg rykke home og needs til at være i højre side ved siden af søgebaren?*/
 </style>
