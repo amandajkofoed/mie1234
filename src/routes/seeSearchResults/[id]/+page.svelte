@@ -11,7 +11,7 @@
         console.log('searching...');
         const query = document.getElementById('exampleSearch').value;
         console.log('query:', query)
-        fetch(`http://130.225.170.197/api/v1/search?keyword=${query}&pageNumber=1&resultsPerPage=10`)
+        fetch(`https://130.225.170.197/api/v1/search?keyword=${query}&pageNumber=1&resultsPerPage=10`)
             .then(response => response.json())
             .then(data => {
                 console.log(data)
