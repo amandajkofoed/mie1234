@@ -8,7 +8,7 @@
     let token ='';
 
     let fetchData = async ()=>{
-        const res = await fetch("https://130.225.170.197/api/v1/allneeds");
+        const res = await fetch("https://www.innocloud.dk/api/v1/allneeds");
         const data = await res.json();
         //console.log(data);
         return data;

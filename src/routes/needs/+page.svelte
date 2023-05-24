@@ -22,7 +22,7 @@
 
 
     let fetchData = async ()=>{
-        const res = await fetch("https://130.225.170.197/api/v1/needs/3");
+        const res = await fetch("https://www.innocloud.dk/api/v1/needs/3");
         //const data = await res.json();
         //console.log(data);
         //return data;

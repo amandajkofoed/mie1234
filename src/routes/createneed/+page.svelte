@@ -32,7 +32,7 @@
         formData.append('FileData', file)
 
         try {
-            const response = await fetch('https://130.225.170.197/api/v1/needs/', {
+            const response = await fetch('https://www.innocloud.dk/api/v1/needs/', {
                 method: 'POST',
                 body: formData
             });
